@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DATABASE_URL = "mysql+mysqlconnector://sql12647981:XM51KVKzDA@sql12.freemysqlhosting.net:3306/sql12647981"
+# DATABASE_URL = "mysql+mysqlconnector://sql12647981:XM51KVKzDA@sql12.freemysqlhosting.net:3306/sql12647981"
 Base = declarative_base()
 
 
@@ -28,7 +28,14 @@ class User(Base):
 
 
 # SQLAlchemy database engine and session setup
-engine = create_engine(DATABASE_URL)
+DATABASE_URL = "mysql+mysqlconnector://sql12647981:XM51KVKzDA@sql12.freemysqlhosting.net:3306/sql12647981"
+
+engine = create_engine(
+    DATABASE_URL,
+    pool_size=5,  # Adjust as needed
+    max_overflow=10,
+)
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
